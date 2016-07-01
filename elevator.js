@@ -198,68 +198,23 @@ var display_people = function(target) {
 
 };
 
-var display_people_fl0 = function() {
-    var x = "";
-    for (var i = 0; i < peeps_on_0.length; i++) {
-        x = x + "O";
+
+var add_person = function(e) {
+    e.stopPropagation();
+    var target = $(event.target).attr('class');
+    //console.log("target", target); //add-person0
+    var that = this;
+    if (peeps_on_0.length >= 8) {
+        console.log("Only 8 people allowed on one floor at a time.")
+    } else {
+        peeps_on_0.push(1);
+        display_people(target);
     }
-    $('#floor00').html(x)
-};
-
-var display_people_fl1 = function() {
-    var x = "";
-    for (var i = 0; i < peeps_on_1.length; i++) {
-        x = x + "O";
-    }
-    $('#floor11').html(x)
-
-    // var y = "";
-    // for (var i = 0; i < peeps_on_0; i++) {
-    //     y = y + "O";
-    // }
-    // $('#floor' + floor + ).html(y)
-
-};
-// display_people(number_of_floors, 11);
-
-//this could take 1 arguemnt..floor number...or 2 floor number and events (or calculate the floor number using the event...using .target)
-var add_person = function() {
-
-    $('.add-person0').on('click', function(e) {
-        e.stopPropagation();
-        var target = $(event.target).attr('class');
-        //console.log("target", target); //add-person0
-        var that = this;
-        if (peeps_on_0.length >= 8) {
-            console.log("Only 8 people allowed on one floor at a time.")
-        } else {
-            peeps_on_0.push(1);
-            display_people(target);
-            // display_people_fl0();
-        }
-
-
-    })
-
-
-    $('.add-person1').on('click', function(e) {
-        e.stopPropagation();
-        var target = $(event.target).attr('class');
-        //console.log("target", target); //add-person1
-        var that = this;
-        if (peeps_on_1.length >= 8) {
-            console.log("Only 8 people allowed on one floor at a time.")
-        } else {
-            peeps_on_1.push(1);
-             display_people(target);
-            // display_people_fl1();
-        }
-    })
-
 };
 
 $(document).ready(function() {
-    // $('.add-person0').on('click', function(e) {
+    $('.add-person0').on('click', add_person(e) {});
+    $('.add-person1').on('click', add_person(e) {});
     display_floors(2);
     display_elevator(current_floor);
     up();
